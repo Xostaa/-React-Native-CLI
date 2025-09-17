@@ -13,6 +13,7 @@ import {
   Text,
   Button,
 } from 'react-native';
+
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function App() {
@@ -29,9 +30,8 @@ function App() {
 function AppContent() {
   return (
     <View style={styles.container}>
-      <View style= {styles.top}>
-        <Text>Hello React-Native</Text>
-        <Button title="Я кнопка"></Button>
+      <View>
+        <Button title="Я кнопка" />
       </View>
     </View>
   );
@@ -39,13 +39,11 @@ function AppContent() {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 40,
   },
-  top : {
-    flexDirection: "column",
-  }
 });
 
 export default App;
