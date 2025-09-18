@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { PermissionsAndroid, Platform } from 'react-native';
-import { Alert } from 'react-native';
 
 import Geolocation from '@react-native-community/geolocation';
 
@@ -36,7 +35,7 @@ class LocationStore {
     }
   };
 
-  getCurrentLocation = () => {
+  getCurrentLocation = (coords: (location: Location) => void) => {
     this.isLoading = true;
     this.error = null;
 
@@ -49,9 +48,12 @@ class LocationStore {
           };
           this.isLoading = false;
         });
+
+        if (coords) {
+          coords(this.currentLocation!);
+        }
       });
     }
-    console.log(`Ваши кординаты : ${this.currentLocation}`)
   };
 }
 

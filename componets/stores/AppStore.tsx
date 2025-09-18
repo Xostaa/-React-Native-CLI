@@ -1,7 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { location } from '../geolocation/geolocation';
+import { location } from '../geolocation/LocationStore';
+import { Alert } from 'react-native';
 
 class AppStore {
   isFirstLaunch: boolean | null = null;
@@ -23,7 +24,7 @@ class AppStore {
       });
 
       if (this.isFirstLaunch) {
-        this.showWelcomeAlert();
+        this.showCords();
       }
     } catch (error) {
       runInAction(() => {
@@ -33,13 +34,16 @@ class AppStore {
     }
   };
 
-  showWelcomeAlert = () => {
-    location.requestLocationPermission();
-    location.getCurrentLocation();
-    AsyncStorage.setItem('@app_launched', 'true');
+  showCords = async () => {
+   await location.requestLocationPermission();
+    location.getCurrentLocation(coords => {
+      console.log(`Кординаты  ${coords.latitude} и ${coords.longitude}`);
+      Alert.alert(`Ваши кординаты ${coords.latitude} и ${coords.longitude}`);
 
-    runInAction(() => {
-      this.isFirstLaunch = false;
+      AsyncStorage.setItem('@app_launched', 'true');
+      runInAction(() => {
+        this.isFirstLaunch = false;
+      });
     });
   };
 }
