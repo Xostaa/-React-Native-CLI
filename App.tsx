@@ -15,9 +15,11 @@ import {
 } from 'react-native';
 
 import { appStore } from './componets/stores/AppStore';
-/* import { apiService } from './componets/Services/api'; */
+import { apiService } from './componets/Services/api';
+import { location } from './componets/geolocation/LocationStore';
+
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-/* import { location } from './componets/geolocation/LocationStore'; */
+
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
   if (appStore.isLoading) {
@@ -32,6 +34,10 @@ function App() {
 }
 
 function AppContent() {
+  async function getShift() {
+    apiService.getShiftDate(location.currentLocation?.latitude, location.currentLocation?.longitude);
+  }
+
   return (
     <>
       <ImageBackground
@@ -40,7 +46,7 @@ function AppContent() {
         style={styles.image}
       >
         <View style={styles.container}>
-          <Button title="Доступные смены" />
+          <Button onPress={getShift} title="Доступные смены" />
         </View>
       </ImageBackground>
     </>

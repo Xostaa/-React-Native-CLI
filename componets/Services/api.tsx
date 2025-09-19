@@ -16,16 +16,17 @@ export interface Shift {
 const API_BASE_URL = 'https://mobile.handswork.pro/api';
 
 export const apiService = {
-  getShiftDate: async (latitube: number, longitube: number) => {
+  getShiftDate: async (latitude: number, longitude: number) => {
     try {
       const responce = await fetch(
-        `${API_BASE_URL}/shift/map-list-unauthorized?latitube=${latitube}&longitube=${longitube}`,
+        `${API_BASE_URL}/shifts/map-list-unauthorized?latitude=${latitude}&longitude=${longitude}`,
       );
       if (!responce.ok) {
+        
         throw new Error(`Http error! status: ${responce.status}`);
       }
-      const data = responce.json();
-      console.log(data)
+      const data = await responce.json();
+      console.log(data, `${API_BASE_URL}/shifts/map-list-unauthorized?latitude=${latitude}&longitude=${longitude}`,)
       return data;
     } catch (error) {
       console.log('API Error:', error);
