@@ -15,9 +15,9 @@ import {
 } from 'react-native';
 
 import { appStore } from './componets/stores/AppStore';
-
+/* import { apiService } from './componets/Services/api'; */
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+/* import { location } from './componets/geolocation/LocationStore'; */
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
   if (appStore.isLoading) {
@@ -40,7 +40,7 @@ function AppContent() {
         style={styles.image}
       >
         <View style={styles.container}>
-          <Button title="Поиск" />
+          <Button title="Доступные смены" />
         </View>
       </ImageBackground>
     </>
@@ -50,6 +50,8 @@ function AppContent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    marginVertical: 30,
     flexDirection: 'column-reverse',
   },
   image: {
