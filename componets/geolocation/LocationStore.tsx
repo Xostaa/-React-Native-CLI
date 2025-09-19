@@ -1,14 +1,16 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { PermissionsAndroid, Platform } from 'react-native';
-
+import { Shift } from '../../tapy/Shift';
 import Geolocation from '@react-native-community/geolocation';
+import { apiService } from '../Services/api';
 
 export interface Location {
-  longitude: number;
   latitude: number;
+  longitude: number;
 }
 
 class LocationStore {
+  shifts: Shift[] = [];
   currentLocation: Location | null = null;
   isLoading: boolean = false;
   error: string | null = null;
@@ -43,8 +45,8 @@ class LocationStore {
       Geolocation.getCurrentPosition(position => {
         runInAction(() => {
           this.currentLocation = {
-            longitude: position.coords.longitude,
             latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
           };
           this.isLoading = false;
         });
@@ -55,6 +57,33 @@ class LocationStore {
       });
     }
   };
+
+  getShiftData = async (): Promise<Shift[]> => {
+    if (!this.currentLocation) {
+      throw new Error('Location not available');
+    }
+
+    this.isLoading = true;
+
+    try {
+      const shifts = await apiService.getShiftData(
+        this.currentLocation.latitude,
+        this.currentLocation.longitude,
+      );
+
+      runInAction(() => {
+        this.shifts = shifts; // Сохраняем массив смен
+        this.isLoading = false;
+      });
+
+      return shifts;
+    } catch (error) {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+      throw error;
+    }
+  };
 }
 
-export const location = new LocationStore();
+export const locationStore = new LocationStore();

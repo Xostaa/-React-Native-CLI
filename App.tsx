@@ -4,20 +4,21 @@
  *
  * @format
  */
-
+import React from 'react';
+import { observer } from 'mobx-react-lite';
 import {
   StatusBar,
   StyleSheet,
   useColorScheme,
   View,
   ImageBackground,
+  Text,
   Button,
 } from 'react-native';
 
-import { appStore } from './componets/stores/AppStore';
-import { apiService } from './componets/Services/api';
-import { location } from './componets/geolocation/LocationStore';
-
+import { appStore } from './componets/Stores/AppStore';
+import { locationStore } from './componets/Geolocation/LocationStore';
+import ShiftList from './componets/ShiftList/ShiftList';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function App() {
@@ -33,36 +34,37 @@ function App() {
   }
 }
 
-function AppContent() {
-  async function getShift() {
-    apiService.getShiftDate(location.currentLocation?.latitude, location.currentLocation?.longitude);
+
+
+const AppContent = observer(() => {
+  if (locationStore.isLoading) {
+    return (
+      <View style={styles.container}>
+        <Text>Загрузка приложения...</Text>
+      </View>
+    );
   }
 
   return (
-    <>
+    <View style={styles.container}>
       <ImageBackground
         source={require('./assets/mob2.jpg')}
         resizeMode="cover"
         style={styles.image}
       >
-        <View style={styles.container}>
-          <Button onPress={getShift} title="Доступные смены" />
-        </View>
+        <ShiftList />
       </ImageBackground>
-    </>
+    </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    marginVertical: 30,
-    flexDirection: 'column-reverse',
   },
   image: {
     height: '100%',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
 });
 

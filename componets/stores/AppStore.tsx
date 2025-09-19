@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { location } from '../geolocation/LocationStore';
+import { locationStore } from '../Geolocation/LocationStore';
 
 class AppStore {
   isFirstLaunch: boolean | null = null;
@@ -34,9 +34,8 @@ class AppStore {
   };
 
   showCords = async () => {
-    await location.requestLocationPermission();
-    location.getCurrentLocation(coords => {
-      console.log(coords.latitude, coords.longitude);
+    await locationStore.requestLocationPermission();
+    locationStore.getCurrentLocation(() => {
       AsyncStorage.setItem('@app_launched', 'true');
     });
 
