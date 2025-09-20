@@ -12,10 +12,11 @@ import {
   useColorScheme,
   View,
   ImageBackground,
-  Text,
   ActivityIndicator,
+  Modal,
+  Button,
 } from 'react-native';
-
+import { modalStore } from './componets/Stores/ModalStore';
 import { appStore } from './componets/Stores/AppStore';
 import { locationStore } from './componets/Geolocation/LocationStore';
 import ShiftList from './componets/ShiftList/ShiftList';
@@ -50,7 +51,11 @@ const AppContent = observer(() => {
       style={styles.image}
     >
       <View style={styles.container}>
-        <ShiftList />
+          <Modal visible= {modalStore.status}>
+            <ShiftList />
+            <Button onPress={modalStore.closs} title="Закрыть" />
+          </Modal>
+        <Button onPress={modalStore.open} title="Показать смены" />
       </View>
     </ImageBackground>
   );
