@@ -31,9 +31,11 @@ const ShiftList = observer(() => {
           renderItem={({ item }) => <ShiftItem shift={item} />}
           ListEmptyComponent={<Text>Нет доступных смен</Text>}
         />
-         <Button
+        <Button
           title="Загрузить смены"
-          onPress={() => locationStore.getShiftData()}
+          onPress={async () => {
+            await locationStore.getShiftData();
+          }}
         />
       </View>
     </>

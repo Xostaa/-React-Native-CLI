@@ -34,14 +34,21 @@ class AppStore {
   };
 
   showCords = async () => {
-    await locationStore.requestLocationPermission();
-    locationStore.getCurrentLocation(() => {
-      AsyncStorage.setItem('@app_launched', 'true');
-    });
+    try {
+      await locationStore.requestLocationPermission();
 
-    runInAction(() => {
-      this.isFirstLaunch = false;
-    });
+      await new Promise<void>(resolve => {
+        locationStore.getCurrentLocation(() => resolve());
+      });
+
+      await AsyncStorage.setItem('@app_launched', 'true');
+
+      runInAction(() => {
+        this.isFirstLaunch = false;
+      });
+    } catch (error) {
+      console.error('Ошибка в slowCords:', error);
+    }
   };
 }
 

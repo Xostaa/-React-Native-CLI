@@ -14,8 +14,10 @@ export const apiService = {
       if (!responce.ok) {
         throw new Error(`Http error! status: ${responce.status}`);
       }
-      const data: Shift[] = await responce.json();
-      return data;
+      const { data: shifts, status } = await responce.json();
+      console.log(status);
+      
+      return shifts;
     } catch (error) {
       console.log('API Error:', error);
       throw error;

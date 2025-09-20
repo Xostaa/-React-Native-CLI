@@ -13,7 +13,7 @@ import {
   View,
   ImageBackground,
   Text,
-  Button,
+  ActivityIndicator,
 } from 'react-native';
 
 import { appStore } from './componets/Stores/AppStore';
@@ -34,37 +34,36 @@ function App() {
   }
 }
 
-
-
 const AppContent = observer(() => {
   if (locationStore.isLoading) {
     return (
-      <View style={styles.container}>
-        <Text>Загрузка приложения...</Text>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <ActivityIndicator size="large" />
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require('./assets/mob2.jpg')}
-        resizeMode="cover"
-        style={styles.image}
-      >
+    <ImageBackground
+      source={require('./assets/mob2.jpg')}
+      resizeMode="cover"
+      style={styles.image}
+    >
+      <View style={styles.container}>
         <ShiftList />
-      </ImageBackground>
-    </View>
+      </View>
+    </ImageBackground>
   );
 });
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     height: '100%',
-    justifyContent: 'flex-end',
   },
 });
 

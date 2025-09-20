@@ -75,7 +75,7 @@ class LocationStore {
         this.shifts = shifts; // Сохраняем массив смен
         this.isLoading = false;
       });
-
+     
       return shifts;
     } catch (error) {
       runInAction(() => {
