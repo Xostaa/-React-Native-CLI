@@ -1,21 +1,32 @@
 import { ImageBackg } from '../../shared/ImageBackg';
 import { locationStore } from '../Geolocation/LocationStore';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { modalStore } from '../Stores/ModalStore';
+import { ModalShiftList } from '../ModalShiftList/ModalShiftList';
+
 export function Main() {
   return (
-    <ImageBackg source={require('E:/Rezyme/Test/MyProject/assets/fon.png')}>
-      <View style={style.container}>
-        <View style={style.content}>
-          <Text style={style.title}>Мы подобрали смены для вас!</Text>
-          <TouchableOpacity onPress={async () =>  await locationStore.getShiftData()}>
-            <Image
-              style={style.img}
-              source={require('E:/Rezyme/Test/MyProject/assets/button.png')}
-            />
-          </TouchableOpacity>
+    <>
+      <ImageBackg source={require('E:/Rezyme/Test/MyProject/assets/fon.png')}>
+        <View style={style.container}>
+          <View style={style.content}>
+            <Text style={style.title}>Мы подобрали смены для вас!</Text>
+            <TouchableOpacity
+              onPress={async () => {
+                 modalStore.open();
+                await locationStore.getShiftData();
+              }}
+            >
+              <Image
+                style={style.img}
+                source={require('E:/Rezyme/Test/MyProject/assets/button.png')}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </ImageBackg>
+      </ImageBackg>
+      <ModalShiftList />
+    </>
   );
 }
 
@@ -26,15 +37,15 @@ const style = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   content: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
     flexDirection: 'row',
     paddingVertical: 30,
     paddingHorizontal: 30,
   },
   title: {
-    width: "60%",
+    width: '60%',
     fontFamily: 'Arial',
     fontWeight: 'bold',
     fontSize: 20,

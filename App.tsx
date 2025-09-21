@@ -40,17 +40,11 @@ const AppContent = observer(() => {
     );
   }
 
-  return <Main></Main>;
+  return (
+    <>
+      <Main />
+    </>
+  );
 });
 
-
-
 export default App;
-
-{
-  /* <Modal visible={modalStore.status}>
-          <ShiftList />
-          <Button onPress={modalStore.closs} title="Закрыть" />
-        </Modal>
-        <Button onPress={modalStore.open} title="Показать смены" /> */
-}
