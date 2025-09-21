@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, Button } from 'react-native';
+import { View, Text, FlatList} from 'react-native';
 import { locationStore } from '../Geolocation/LocationStore';
 import { observer } from 'mobx-react-lite';
 import { Shift } from '../../tapy/Shift';
@@ -30,12 +30,6 @@ const ShiftList = observer(() => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => <ShiftItem shift={item} />}
           ListEmptyComponent={<Text>Нет доступных смен</Text>}
-        />
-        <Button
-          title="Загрузить смены"
-          onPress={async () => {
-            await locationStore.getShiftData();
-          }}
         />
       </View>
     </>

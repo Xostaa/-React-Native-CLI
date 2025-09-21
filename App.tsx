@@ -8,19 +8,15 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import {
   StatusBar,
-  StyleSheet,
   useColorScheme,
   View,
-  ImageBackground,
   ActivityIndicator,
-  Modal,
-  Button,
 } from 'react-native';
-import { modalStore } from './componets/Stores/ModalStore';
+
 import { appStore } from './componets/Stores/AppStore';
 import { locationStore } from './componets/Geolocation/LocationStore';
-import ShiftList from './componets/ShiftList/ShiftList';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Main } from './componets/Main/Main';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -44,32 +40,17 @@ const AppContent = observer(() => {
     );
   }
 
-  return (
-    <ImageBackground
-      source={require('./assets/mob2.jpg')}
-      resizeMode="cover"
-      style={styles.image}
-    >
-      <View style={styles.container}>
-          <Modal visible= {modalStore.status}>
-            <ShiftList />
-            <Button onPress={modalStore.closs} title="Закрыть" />
-          </Modal>
-        <Button onPress={modalStore.open} title="Показать смены" />
-      </View>
-    </ImageBackground>
-  );
+  return <Main></Main>;
 });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    height: '100%',
-  },
-});
+
 
 export default App;
+
+{
+  /* <Modal visible={modalStore.status}>
+          <ShiftList />
+          <Button onPress={modalStore.closs} title="Закрыть" />
+        </Modal>
+        <Button onPress={modalStore.open} title="Показать смены" /> */
+}
