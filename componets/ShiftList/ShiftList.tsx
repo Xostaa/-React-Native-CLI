@@ -1,33 +1,50 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
 import { locationStore } from '../Geolocation/LocationStore';
 import { observer } from 'mobx-react-lite';
 import { CastomButton } from '../../shared/CastomButton';
 import { Shift } from '../../tapy/Shift';
-import { moreDetailed } from '../Stores/MoreDetailedStore';
+import { shiftDetailed } from '../Stores/ShiftDetailedStore';
 // Смены не отоброжаються пофиксить
-const ShiftItem = ({ shift }: { shift: Shift }) => {
+
+interface ShiftItemProps {
+  shift: Shift;
+}
+
+const ShiftItem = observer(({ shift }: ShiftItemProps) => {
+  const isExpanded = shiftDetailed.isShiftExpanded(shift.id);
+
   return (
     <View style={style.container}>
       <Text style={style.companyName}>{shift.companyName}</Text>
       <Text>{shift.address}</Text>
       <Text>
-        Время: {shift.timeStartByCity} - {shift.timeStartByCity}
+        Время: {shift.timeStartByCity} - {shift.timeEndByCity}
       </Text>
       <Text>Цена: {shift.priceWorker} </Text>
 
-      {moreDetailed.status && (
+      {isExpanded && (
         <>
-          <Text>ТУТ БУДЕТ ПОДРОБНОЕ ОПИСАНИЕ</Text>
-          <Text>ТУТ БУДЕТ ПОДРОБНОЕ ОПИСАНИЕ</Text>
-          <Text>ТУТ БУДЕТ ПОДРОБНОЕ ОПИСАНИЕ</Text>
+          <View style={style.detailed}>
+            <Image style={style.logo} source={{ uri: shift.logo }}></Image>
+            <Text>{shift.dateStartByCity}</Text>
+            <Text>Тип услуги: {shift.workTypes[0]?.name}</Text>
+            <Text>Требуеться людей: {shift.planWorkers}</Text>
+            <Text>Уже работают: {shift.currentWorkers}</Text>
+            <Text>У компании {shift.customerFeedbacksCount}</Text>
+            <Text>Общий рейтинг {shift.customerRating}</Text>
+          </View>
         </>
       )}
-      <CastomButton onPress={moreDetailed.open} title={'Подробнее'} />
-      
+      <CastomButton
+        onPress={() => {
+          shiftDetailed.toggleDetails(shift.id)
+        }}
+        title={isExpanded ? 'Скрыть' : 'Подробнее'}
+      />
     </View>
   );
-};
+});
 
 const ShiftList = observer(() => {
   if (locationStore.isLoading) {
@@ -39,7 +56,7 @@ const ShiftList = observer(() => {
       <View style={style.content}>
         <FlatList
           data={locationStore.shifts}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ShiftItem shift={item} />}
           ListEmptyComponent={
             <Text style={style.notShift}>Нет доступных смен</Text>
@@ -66,6 +83,13 @@ const style = StyleSheet.create({
   },
   companyName: {
     fontWeight: 'bold',
+  },
+  logo: {
+    width: 50,
+    height: 50,
+  },
+  detailed: {
+    alignItems: 'center',
   },
 });
 
