@@ -151,4 +151,8 @@ UI, организацию кода, структуру проекта и дру
 - В корне репозитория файл README.md с описанием задания (можно использовать этот текст).
 
 ---
+<img width="273" height="552" alt="assets1" src="https://github.com/user-attachments/assets/40bad77a-c183-479b-bec3-db2917cc0962" />
+<img width="287" height="562" alt="assets2" src="https://github.com/user-attachments/assets/691f38e7-3fac-4828-a37a-00de976aa54f" />
+
+
 >>>>>>> a664152cd4144d8221295c3c03b233a122e836d5
