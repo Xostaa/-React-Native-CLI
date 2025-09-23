@@ -1,158 +1,97 @@
-<<<<<<< HEAD
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+WorkShift Finder - Job Shift Finder App
+A mobile application for finding and viewing available part-time job shifts in your city.
 
-# Getting Started
+📱 About the App
+The app displays a list of available shifts nearby based on your geolocation. You can view detailed information about each shift: address, working hours, payment, employer reviews, and other useful information.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+✨ Key Features
+* Automatic location detection - the app automatically finds shifts in your city
 
-## Step 1: Start Metro
+* Convenient shifts list - brief information about each available shift
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+* Detailed information - full data about selected shift with one tap
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+* Real-time data - information updates in real time
 
-```sh
-# Using npm
-npm start
+🛠 Technologies
+* React Native CLI - native development
 
-# OR using Yarn
-yarn start
+* TypeScript - static typing
+
+* MobX - state management
+
+* Android - main platform
+
+🚀 Installation and Setup
+Prerequisites
+* Node.js (version 14 or higher)
+
+* Android Studio
+
+* Android SDK
+
+* Java Development Kit
+
+Setup Steps:
+1. Clone the repository
+
+```bash
+git clone [repository-link]
+cd [project-folder-name]
 ```
+2. Install dependencies
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npm install
 ```
+3. Run the application
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```bash
+# For Android
+npx react-native run-android
 ```
+4. Start Metro server (in separate terminal)
 
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
+```bash
+npx react-native start
 ```
+📊 Shift Information
+Each shift card displays:
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+* 🏢 Company name and logo
 
-```sh
-# Using npm
-npm run ios
+* 📍 Work address
 
-# OR using Yarn
-yarn ios
-```
+* 📅 Date and working hours
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+* 💰 Payment per shift
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+* 👥 Required and already hired workers count
 
-## Step 3: Modify your app
+* ⭐ Employer rating and reviews
 
-Now that you have successfully run the app, let's make changes!
+* 🔧 Type of work
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+🌍 Geolocation
+On first launch, the app will request permission to access your location. This is necessary to find shifts in your city. Location data is used only to get relevant list of available shifts.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+🤝 Development
+The app is built using modern React Native development practices. The codebase supports:
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+* Clean component architecture
 
-## Congratulations! :tada:
+* Efficient state management
 
-You've successfully run and modified your React Native App. :partying_face:
+* Optimized performance
 
-### Now what?
+* TypeScript for code reliability
+```br```
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-=======
-# Тестовое задание: React Native приложение (CLI)
-
-Создать небольшое приложение на **React Native (CLI, без Expo)**, которое показывает список доступных смен для подработки, полученных по геолокации пользователя.
-
-UI, организацию кода, структуру проекта и другие архитектурные решения кандидат выбирает самостоятельно.
-
----
-
-## Функциональные требования
-
-1. При первом запуске запросить точную геолокацию пользователя.
-2. Получить список смен в городе, передав координаты пользователя в запрос.  
-   Пример запроса:  
-   [https://mobile.handswork.pro/api/shift...=38.987221](https://mobile.handswork.pro/api/shifts/map-list-unauthorized?latitude=45.039268&longitude=38.987221)
-3. Отобразить список смен с краткой информацией.
-4. По нажатию на элемент списка открыть экран с подробными данными выбранной смены.  
-   Данные для экрана деталей брать из ранее полученного списка (без повторного запроса, если нет необходимости обновления).
-5. Весь процесс разработки разбить на коммиты и опубликовать в публичном репозитории GitHub.
-
----
-
-## Ограничения
-
-- Не использовать Expo и аналогичные инструменты — только React Native CLI.
-- Допустимая реализация навигации, состояния, верстки — на усмотрение кандидата.
-- Для состояния предпочтительно использовать MobX.
-- Вёрстка должна демонстрировать оптимизацию и понимание работы с React.
-
----
-
-## Описание данных (поля возвращаемого объекта смены)
-
-- logo – ссылка на логотип нанимателя
-- address – адрес проведения смены
-- companyName – имя компании нанимателя
-- dateStartByCity – дата начала смены
-- timeStartByCity – время начала
-- timeEndByCity – время окончания
-- currentWorkers – сколько людей уже набрано (может быть больше требуемого)
-- planWorkers – сколько людей требуется
-- workTypes – наименование типа услуги
-- priceWorker – сумма выплаты за смену (в рублях)
-- customerFeedbacksCount – количество отзывов о клиенте
-- customerRating – рейтинг нанимателя (максимум 5)
-
----
-
-## Требования к репозиторию
-
-- История коммитов должна отражать поэтапную реализацию.
-- Репозиторий открыт (public) на GitHub.
-- В корне репозитория файл README.md с описанием задания (можно использовать этот текст).
+For questions and suggestions, please create an issue in the project repository.
 
 ---
 <img width="273" height="552" alt="assets1" src="https://github.com/user-attachments/assets/40bad77a-c183-479b-bec3-db2917cc0962" />
 <img width="287" height="562" alt="assets2" src="https://github.com/user-attachments/assets/691f38e7-3fac-4828-a37a-00de976aa54f" />
 
 
->>>>>>> a664152cd4144d8221295c3c03b233a122e836d5
+
